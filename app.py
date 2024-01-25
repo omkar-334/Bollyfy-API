@@ -16,8 +16,8 @@ def is_article_text(element):
     return True
 
 app = Flask(__name__)
-@app.route('/scraper/<path:url>', methods=['GET'])
-def scraper(url):
+@app.route('/article/<path:url>', methods=['GET'])
+def converter(url):
     start=time.time()
     try:
         response = requests.get(url).content
