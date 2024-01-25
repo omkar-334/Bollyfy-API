@@ -16,9 +16,8 @@ def is_article_text(element):
     return True
 
 app = Flask(__name__)
-@app.route('/article/<path:url>', methods=['GET'])
-def converter(url):
-    start=time.time()
+@app.route('/songify/<path:url>', methods=['GET'])
+def songify(url):
     try:
         response = requests.get(url).content
         texts = BeautifulSoup(response, 'html.parser').findAll(string=True)
@@ -31,7 +30,7 @@ def converter(url):
         'Authorization': f"Bearer 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",}
     json_data = {
         'model': 'gpt-3.5-turbo',
-        'messages': [{'role': 'user','content': output+"\n\n Convert this news article into a Hindi Bollywood song and display the song in the Devanagri Script. Do not display any comments or any comments, in any case."}]}
+        'messages': [{'role': 'user','content': output+"\n\n Convert this news article into a Hindi Bollywood song and display the song in the Devanagri Script. Do not display any comments or any comments, in any case. You can include comments like 'verse' and 'chorus'."}]}
 
     response = requests.post('https://api.openai.com/v1/chat/completions', headers=headers, json=json_data)
     return response.json()['choices'][0]['message']['content']
